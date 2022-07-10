@@ -61,8 +61,8 @@ microbiomeplot_logo <-
     ), sep = "\n")
   }
 
-microbiomeplot_version <- "0.99.1"
-  # as.character(utils::packageVersion(pkg = "microbiomeplot"))
+microbiomeplot_version <- 
+  as.character(utils::packageVersion(pkg = "microbiomeplot"))
 update_date <- as.character(Sys.time())
 
 # library(cowsay)
