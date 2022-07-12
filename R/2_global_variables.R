@@ -14,4 +14,5 @@ globalVariables(names = c("variable_id",
                           "label",
                           "log_intensity",
                           "node",
-                          "taxa_rank"))
+                          "taxa_rank",
+                          "value"))

@@ -22,6 +22,9 @@
     <loc>https://tidymicrobiome.github.io/microbiomeplot/news/index.html</loc>
   </url>
   <url>
+    <loc>https://tidymicrobiome.github.io/microbiomeplot/reference/global_patterns.html</loc>
+  </url>
+  <url>
     <loc>https://tidymicrobiome.github.io/microbiomeplot/reference/index.html</loc>
   </url>
   <url>
@@ -34,6 +37,12 @@
     <loc>https://tidymicrobiome.github.io/microbiomeplot/reference/microbiomeplot_packages.html</loc>
   </url>
   <url>
+    <loc>https://tidymicrobiome.github.io/microbiomeplot/reference/plot_barplot.html</loc>
+  </url>
+  <url>
     <loc>https://tidymicrobiome.github.io/microbiomeplot/reference/plot_circlepack.html</loc>
+  </url>
+  <url>
+    <loc>https://tidymicrobiome.github.io/microbiomeplot/reference/reexports.html</loc>
   </url>
 </urlset>

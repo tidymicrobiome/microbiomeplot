@@ -21,17 +21,18 @@
 #' @importFrom methods slot slot<-
 #' @import ggplot2
 #' @importFrom methods .hasSlot new is
-#' @importFrom stats p.adjust rgamma sd median time
+#' @importFrom stats p.adjust rgamma sd median time setNames
 #' @importFrom utils data str head tail packageVersion write.table
 #' @importFrom magrittr %>%
 #' @importFrom ggsci pal_lancet
 #' @importFrom rlang warn quo_is_null abort seq2
 #' @importFrom tibble add_column
-#' @importFrom microbiomedataset activate_microbiome_dataset convert2tbl_graph
+#' @importFrom microbiomedataset activate_microbiome_dataset convert2tbl_graph extract_intensity
 #' @importFrom tidygraph activate
 #' @importFrom ggraph ggraph geom_node_circle geom_node_label theme_graph
 #' @importFrom viridis viridis
 #' @importFrom tidyr pivot_longer
+#' @importFrom massdataset extract_sample_info extract_variable_info extract_expression_data
 #' @export
 #' @return logo
 #' @examples

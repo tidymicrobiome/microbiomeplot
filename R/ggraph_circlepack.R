@@ -80,9 +80,9 @@ plot_circlepack.microbiome_dataset <-
     
     plot <-
       plot +
-      geom_node_circle(aes(fill = taxa_rank),
+      ggraph::geom_node_circle(aes(fill = taxa_rank),
                        size = 0.25, n = 50) +
-      geom_node_label(aes(label = label), size = 4, repel = TRUE) +
+      ggraph::geom_node_label(aes(label = label), size = 4, repel = TRUE) +
       scale_fill_manual(
         values = c(
           "Kingdom" = viridis::viridis(10)[1],
