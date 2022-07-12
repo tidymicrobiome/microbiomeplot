@@ -7,7 +7,7 @@
 #' @importFrom ComplexHeatmap Heatmap columnAnnotation anno_barplot
 #' @importFrom grid gpar
 #' @importFrom ggplotify as.ggplot
-#' @importFrom dplyr filter mutate select everything left_join
+#' @importFrom dplyr filter mutate select everything left_join case_when
 #' @importFrom plyr dlply .
 #' @importFrom rstudioapi isAvailable hasFun getThemeInfo
 #' @importFrom utils packageDescription write.csv
@@ -25,9 +25,13 @@
 #' @importFrom utils data str head tail packageVersion write.table
 #' @importFrom magrittr %>%
 #' @importFrom ggsci pal_lancet
-#' @importFrom masstools read_mgf read_mzxml ms2_plot
 #' @importFrom rlang warn quo_is_null abort seq2
 #' @importFrom tibble add_column
+#' @importFrom microbiomedataset activate_microbiome_dataset convert2tbl_graph
+#' @importFrom tidygraph activate
+#' @importFrom ggraph ggraph geom_node_circle geom_node_label theme_graph
+#' @importFrom viridis viridis
+#' @importFrom tidyr pivot_longer
 #' @export
 #' @return logo
 #' @examples
@@ -36,32 +40,30 @@
 microbiomeplot_logo <-
   function() {
     message(crayon::green("Thank you for using microbiomeplot!\n"))
-    message(crayon::green(
-      "Version",
-      microbiomeplot_version,
-      "(",
-      update_date,
-      ')\n'
-    ))
+    message(crayon::green("Version",
+                          microbiomeplot_version,
+                          "(",
+                          update_date,
+                          ')\n'))
     message(crayon::green(
       "More information: search 'tidymicrobiome microbiomeplot'.\n"
     ))
     cat(crayon::green(
       c(
-        "            _                _     _                      _____        _                 _   ",
-        "           (_)              | |   (_)                    |  __ \\      | |               | |  ",
-        "  _ __ ___  _  ___ _ __ ___ | |__  _  ___  _ __ ___   ___| |  | | __ _| |_ __ _ ___  ___| |_ ",
-        " | '_ ` _ \\| |/ __| '__/ _ \\| '_ \\| |/ _ \\| '_ ` _ \\ / _ \\ |  | |/ _` | __/ _` / __|/ _ \\ __|",
-        " | | | | | | | (__| | | (_) | |_) | | (_) | | | | | |  __/ |__| | (_| | || (_| \\__ \\  __/ |_ ",
-        " |_| |_| |_|_|\\___|_|  \\___/|_.__/|_|\\___/|_| |_| |_|\\___|_____/ \\__,_|\\__\\__,_|___/\\___|\\__|",
-        "                                                                                             ",
-        "                                                                                             "
+        "            _                _     _                      _____  _       _   ",
+        "           (_)              | |   (_)                    |  __ \\| |     | |  ",
+        "  _ __ ___  _  ___ _ __ ___ | |__  _  ___  _ __ ___   ___| |__) | | ___ | |_ ",
+        " | '_ ` _ \\| |/ __| '__/ _ \\| '_ \\| |/ _ \\| '_ ` _ \\ / _ \\  ___/| |/ _ \\| __|",
+        " | | | | | | | (__| | | (_) | |_) | | (_) | | | | | |  __/ |    | | (_) | |_ ",
+        " |_| |_| |_|_|\\___|_|  \\___/|_.__/|_|\\___/|_| |_| |_|\\___|_|    |_|\\___/ \\__|",
+        "                                                                             ",
+        "                                                                             "
       )
       
     ), sep = "\n")
   }
 
-microbiomeplot_version <- 
+microbiomeplot_version <-
   as.character(utils::packageVersion(pkg = "microbiomeplot"))
 update_date <- as.character(Sys.time())
 

@@ -1,6 +1,6 @@
 Package: microbiomeplot
 Title: microbiomeplot
-Version: 0.99.1
+Version: 0.99.2
 Date: 2022-07-09
 Authors@R: 
     person(given = "Xiaotao",
@@ -35,7 +35,6 @@ Imports:
     readr,
     rlang,
     plyr,
-    masstools,
     ComplexHeatmap,
     grid,
     ggplotify,
@@ -43,13 +42,10 @@ Imports:
     stats,
     utils,
     tidyr,
-    tidytree,
-    Biostrings,
-    massdataset,
-    tidyselect,
-    vctrs,
-    phyloseq,
-    microbiomedataset
+    microbiomedataset,
+    tidygraph,
+    viridis,
+    ggraph
 Suggests: 
     knitr,
     rmarkdown,

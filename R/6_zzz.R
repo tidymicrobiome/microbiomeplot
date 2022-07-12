@@ -8,7 +8,7 @@
 #   
 #   # if (!"package:conflicted" %in% search()) {
 #   #   x <-microbiomeplot_conflicts()
-#   #   msg(massdataset_conflict_message(x), startup = TRUE)
+#   #   msg(microbiomeplot_conflict_message(x), startup = TRUE)
 #   # }
 # }
 # 
