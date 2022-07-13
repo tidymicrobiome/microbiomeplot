@@ -8,6 +8,7 @@
 plot_barplot(
   object,
   fill = c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species"),
+  alluvial = FALSE,
   top_n = 5,
   show.legend,
   what = c("sum_intensity", "mean_intensity", "median_intensity"),
@@ -23,6 +24,7 @@ plot_barplot(
 \method{plot_barplot}{microbiome_dataset}(
   object,
   fill = c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species"),
+  alluvial = FALSE,
   top_n = 5,
   show.legend,
   what = c("sum_intensity", "mean_intensity", "median_intensity"),
@@ -39,6 +41,8 @@ plot_barplot(
 \item{object}{microbiome_dataset}
 
 \item{fill}{fill for barplot}
+
+\item{alluvial}{Add alluvial or not.}
 
 \item{top_n}{default is 5}
 
@@ -70,11 +74,49 @@ Barplot based on ggplot2
 library(microbiomeplot)
 data("global_patterns")
 global_patterns \%>\%
+  activate_microbiome_dataset(what = "sample_info") \%>\%
+  filter(SampleType \%in\% c("Feces", "Mock")) \%>\%
   plot_barplot(fill = "Phylum")
 
 global_patterns \%>\%
+  activate_microbiome_dataset(what = "sample_info") \%>\%
+  filter(SampleType \%in\% c("Feces", "Mock")) \%>\%
+  plot_barplot(
+    fill = "Phylum",
+    relative = TRUE,
+    re_calculate_relative = TRUE,
+    show.legend = TRUE
+  )
+
+global_patterns \%>\%
+  activate_microbiome_dataset(what = "sample_info") \%>\%
+  filter(SampleType \%in\% c("Feces", "Mock")) \%>\%
   plot_barplot(fill = "Phylum",
-               relative = TRUE,
-               re_calculate_relative = TRUE, 
-               show.legend = TRUE)
+               alluvial = TRUE,
+               top_n = 10)
+
+global_patterns \%>\%
+  activate_microbiome_dataset(what = "sample_info") \%>\%
+  filter(SampleType \%in\% c("Feces", "Mock")) \%>\%
+  plot_barplot(
+    fill = "Phylum",
+    relative = TRUE,
+    re_calculate_relative = TRUE,
+    show.legend = TRUE,
+    alluvial = TRUE,
+    top_n = 10
+  )
+
+global_patterns \%>\%
+  activate_microbiome_dataset(what = "sample_info") \%>\%
+  filter(SampleType \%in\% c("Feces", "Mock")) \%>\%
+  plot_barplot(
+    fill = "Phylum",
+    relative = TRUE,
+    re_calculate_relative = TRUE,
+    show.legend = TRUE,
+    alluvial = TRUE,
+    top_n = 10,
+    facet_grid = "SampleType"
+  )
 }

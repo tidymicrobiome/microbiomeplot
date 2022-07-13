@@ -98,6 +98,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_barplot</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kingdom"</span>, <span class="st">"Phylum"</span>, <span class="st">"Class"</span>, <span class="st">"Order"</span>, <span class="st">"Family"</span>, <span class="st">"Genus"</span>, <span class="st">"Species"</span><span class="op">)</span>,</span>
+<span>  alluvial <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  top_n <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  <span class="va">show.legend</span>,</span>
 <span>  what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sum_intensity"</span>, <span class="st">"mean_intensity"</span>, <span class="st">"median_intensity"</span><span class="op">)</span>,</span>
@@ -114,6 +115,7 @@
 <span><span class="fu">plot_barplot</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kingdom"</span>, <span class="st">"Phylum"</span>, <span class="st">"Class"</span>, <span class="st">"Order"</span>, <span class="st">"Family"</span>, <span class="st">"Genus"</span>, <span class="st">"Species"</span><span class="op">)</span>,</span>
+<span>  alluvial <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  top_n <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  <span class="va">show.legend</span>,</span>
 <span>  what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sum_intensity"</span>, <span class="st">"mean_intensity"</span>, <span class="st">"median_intensity"</span><span class="op">)</span>,</span>
@@ -135,6 +137,10 @@
 
 <dt>fill</dt>
 <dd><p>fill for barplot</p></dd>
+
+
+<dt>alluvial</dt>
+<dd><p>Add alluvial or not.</p></dd>
 
 
 <dt>top_n</dt>
@@ -189,15 +195,56 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidymicrobiome/microbiomeplot" class="external-link">microbiomeplot</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"global_patterns"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">global_patterns</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/microbiomedataset/man/activate_microbiome_dataset.html" class="external-link">activate_microbiome_dataset</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"sample_info"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">SampleType</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Feces"</span>, <span class="st">"Mock"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">plot_barplot</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Phylum"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_barplot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">global_patterns</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu">plot_barplot</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Phylum"</span>,</span></span>
-<span class="r-in"><span>               relative <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>               re_calculate_relative <span class="op">=</span> <span class="cn">TRUE</span>, </span></span>
-<span class="r-in"><span>               show.legend <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/microbiomedataset/man/activate_microbiome_dataset.html" class="external-link">activate_microbiome_dataset</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"sample_info"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">SampleType</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Feces"</span>, <span class="st">"Mock"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">plot_barplot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    fill <span class="op">=</span> <span class="st">"Phylum"</span>,</span></span>
+<span class="r-in"><span>    relative <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>    re_calculate_relative <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>    show.legend <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_barplot-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">global_patterns</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/microbiomedataset/man/activate_microbiome_dataset.html" class="external-link">activate_microbiome_dataset</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"sample_info"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">SampleType</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Feces"</span>, <span class="st">"Mock"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">plot_barplot</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Phylum"</span>,</span></span>
+<span class="r-in"><span>               alluvial <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>               top_n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_barplot-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">global_patterns</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/microbiomedataset/man/activate_microbiome_dataset.html" class="external-link">activate_microbiome_dataset</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"sample_info"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">SampleType</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Feces"</span>, <span class="st">"Mock"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">plot_barplot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    fill <span class="op">=</span> <span class="st">"Phylum"</span>,</span></span>
+<span class="r-in"><span>    relative <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>    re_calculate_relative <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>    show.legend <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>    alluvial <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>    top_n <span class="op">=</span> <span class="fl">10</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_barplot-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">global_patterns</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/pkg/microbiomedataset/man/activate_microbiome_dataset.html" class="external-link">activate_microbiome_dataset</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"sample_info"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">SampleType</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Feces"</span>, <span class="st">"Mock"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">plot_barplot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    fill <span class="op">=</span> <span class="st">"Phylum"</span>,</span></span>
+<span class="r-in"><span>    relative <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>    re_calculate_relative <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>    show.legend <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>    alluvial <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>    top_n <span class="op">=</span> <span class="fl">10</span>,</span></span>
+<span class="r-in"><span>    facet_grid <span class="op">=</span> <span class="st">"SampleType"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_barplot-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

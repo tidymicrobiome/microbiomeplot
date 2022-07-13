@@ -5,6 +5,7 @@
 #' \email{shenxt1990@@outlook.com}
 #' @importFrom stringr str_replace str_split str_replace_all str_trim
 #' @importFrom ComplexHeatmap Heatmap columnAnnotation anno_barplot
+#' @import ComplexHeatmap
 #' @importFrom grid gpar
 #' @importFrom ggplotify as.ggplot
 #' @importFrom dplyr filter mutate select everything left_join case_when
@@ -33,6 +34,7 @@
 #' @importFrom viridis viridis
 #' @importFrom tidyr pivot_longer
 #' @importFrom massdataset extract_sample_info extract_variable_info extract_expression_data
+#' @importFrom ggalluvial geom_alluvium geom_stratum
 #' @export
 #' @return logo
 #' @examples

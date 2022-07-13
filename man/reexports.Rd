@@ -6,6 +6,20 @@
 \alias{activate_microbiome_dataset}
 \alias{convert2tbl_graph}
 \alias{\%>\%}
+\alias{filter}
+\alias{select}
+\alias{mutate}
+\alias{group_by}
+\alias{ungroup}
+\alias{rename}
+\alias{distinct}
+\alias{arrange}
+\alias{pull}
+\alias{slice}
+\alias{nest}
+\alias{unnest}
+\alias{left_join}
+\alias{Heatmap}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -13,8 +27,14 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{ComplexHeatmap}{\code{\link[ComplexHeatmap]{Heatmap}}}
+
+  \item{dplyr}{\code{\link[dplyr]{arrange}}, \code{\link[dplyr]{distinct}}, \code{\link[dplyr]{filter}}, \code{\link[dplyr]{group_by}}, \code{\link[dplyr:mutate-joins]{left_join}}, \code{\link[dplyr]{mutate}}, \code{\link[dplyr]{pull}}, \code{\link[dplyr]{rename}}, \code{\link[dplyr]{select}}, \code{\link[dplyr]{slice}}, \code{\link[dplyr:group_by]{ungroup}}}
+
   \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
 
   \item{microbiomedataset}{\code{\link[microbiomedataset]{activate_microbiome_dataset}}, \code{\link[microbiomedataset]{convert2tbl_graph}}}
+
+  \item{tidyr}{\code{\link[tidyr]{nest}}, \code{\link[tidyr:nest]{unnest}}}
 }}
 

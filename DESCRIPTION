@@ -47,7 +47,8 @@ Imports:
     viridis,
     ggraph,
     massdataset,
-    phyloseq
+    phyloseq,
+    ggalluvial
 Suggests: 
     knitr,
     rmarkdown,

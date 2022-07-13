@@ -1,6 +1,7 @@
 #' @title Barplot based on ggplot2
 #' @param object microbiome_dataset
 #' @param fill fill for barplot
+#' @param alluvial Add alluvial or not.
 #' @param top_n default is 5
 #' @param show.legend show.legend or not
 #' @param what which you want to mutate
@@ -23,6 +24,7 @@ plot_barplot <-
                     "Family",
                     "Genus",
                     "Species"),
+           alluvial = FALSE,
            top_n = 5,
            show.legend,
            what = c("sum_intensity",
@@ -51,13 +53,51 @@ plot_barplot <-
 #' library(microbiomeplot)
 #' data("global_patterns")
 #' global_patterns %>%
+#'   activate_microbiome_dataset(what = "sample_info") %>%
+#'   filter(SampleType %in% c("Feces", "Mock")) %>%
 #'   plot_barplot(fill = "Phylum")
-#' 
+#'
 #' global_patterns %>%
+#'   activate_microbiome_dataset(what = "sample_info") %>%
+#'   filter(SampleType %in% c("Feces", "Mock")) %>%
+#'   plot_barplot(
+#'     fill = "Phylum",
+#'     relative = TRUE,
+#'     re_calculate_relative = TRUE,
+#'     show.legend = TRUE
+#'   )
+#'
+#' global_patterns %>%
+#'   activate_microbiome_dataset(what = "sample_info") %>%
+#'   filter(SampleType %in% c("Feces", "Mock")) %>%
 #'   plot_barplot(fill = "Phylum",
-#'                relative = TRUE,
-#'                re_calculate_relative = TRUE, 
-#'                show.legend = TRUE)
+#'                alluvial = TRUE,
+#'                top_n = 10)
+#'
+#' global_patterns %>%
+#'   activate_microbiome_dataset(what = "sample_info") %>%
+#'   filter(SampleType %in% c("Feces", "Mock")) %>%
+#'   plot_barplot(
+#'     fill = "Phylum",
+#'     relative = TRUE,
+#'     re_calculate_relative = TRUE,
+#'     show.legend = TRUE,
+#'     alluvial = TRUE,
+#'     top_n = 10
+#'   )
+#'
+#' global_patterns %>%
+#'   activate_microbiome_dataset(what = "sample_info") %>%
+#'   filter(SampleType %in% c("Feces", "Mock")) %>%
+#'   plot_barplot(
+#'     fill = "Phylum",
+#'     relative = TRUE,
+#'     re_calculate_relative = TRUE,
+#'     show.legend = TRUE,
+#'     alluvial = TRUE,
+#'     top_n = 10,
+#'     facet_grid = "SampleType"
+#'   )
 
 plot_barplot.microbiome_dataset <-
   function(object,
@@ -68,6 +108,7 @@ plot_barplot.microbiome_dataset <-
                     "Family",
                     "Genus",
                     "Species"),
+           alluvial = FALSE,
            top_n = 5,
            show.legend,
            what = c("sum_intensity",
@@ -141,26 +182,39 @@ plot_barplot.microbiome_dataset <-
                          dplyr::distinct(!!as.symbol(x),
                                          .keep_all = TRUE),
                        by = setNames(x, x))
+    
+    if (alluvial) {
+      plot <-
+        intensity %>%
+        ggplot(aes(
+          x = get(x),
+          y = value,
+          stratum = get(fill),
+          alluvium = get(fill),
+          fill = get(fill)
+        )) +
+        geom_alluvium(width = 0.3, alpha = 0.5) +
+        geom_stratum(width = 0.5)
+    } else{
+      plot <-
+        intensity %>%
+        ggplot(aes(x = get(x),
+                   y = value)) +
+        geom_bar(
+          stat = "identity",
+          aes(fill = get(fill)),
+          show.legend = show.legend,
+          color = "black"
+        )
+    }
+    
     plot <-
-      intensity %>%
-      ggplot(aes(x = get(x),
-                 y = value)) +
-      geom_bar(
-        stat = "identity",
-        aes(fill = get(fill)),
-        show.legend = show.legend,
-        color = "black"
-      ) +
+      plot +
       labs(x = x) +
       theme_bw() +
       scale_x_discrete(expand = expansion(mult = c(0, 0))) +
       scale_y_continuous(expand = expansion(mult = c(0, 0))) +
-      guides(fill = guide_legend(title = fill)) +
-      theme(axis.text.x = element_text(
-        angle = 45,
-        hjust = 1,
-        vjust = 1
-      ))
+      guides(fill = guide_legend(title = fill))
     
     if (relative) {
       plot <-
@@ -178,5 +232,12 @@ plot_barplot.microbiome_dataset <-
         facet_grid(cols = vars(!!as.symbol(facet_grid)),
                    scales = "free_x")
     }
-    plot
+    
+    plot +
+      theme(axis.text.x = element_text(
+        angle = 45,
+        hjust = 1,
+        vjust = 1
+      ),
+      panel.grid = element_blank())
   }

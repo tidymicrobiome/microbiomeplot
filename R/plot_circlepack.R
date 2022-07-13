@@ -1,4 +1,4 @@
-#' @title Barplot based on ggplot2
+#' @title Circlepack plot based on ggplot2
 #' @param object microbiome_dataset
 #' @param label_level label levels
 #' @param weight intensity or log_intensity
@@ -17,6 +17,7 @@ plot_circlepack <-
 #' @method plot_circlepack microbiome_dataset
 #' @rdname plot_circlepack
 #' @export
+#' @examples 
 #' library(microbiomeplot)
 #' data("global_patterns")
 #' global_patterns %>%
@@ -101,6 +102,6 @@ plot_circlepack.microbiome_dataset <-
         )
       ) +
       coord_fixed() +
-      ggraph::theme_graph()
+      ggraph::theme_graph(base_family="sans")
     return(plot)
   }

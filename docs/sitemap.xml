@@ -7,6 +7,9 @@
     <loc>https://tidymicrobiome.github.io/microbiomeplot/LICENSE-text.html</loc>
   </url>
   <url>
+    <loc>https://tidymicrobiome.github.io/microbiomeplot/articles/barplot.html</loc>
+  </url>
+  <url>
     <loc>https://tidymicrobiome.github.io/microbiomeplot/articles/index.html</loc>
   </url>
   <url>
@@ -20,6 +23,9 @@
   </url>
   <url>
     <loc>https://tidymicrobiome.github.io/microbiomeplot/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://tidymicrobiome.github.io/microbiomeplot/reference/Heatmap.html</loc>
   </url>
   <url>
     <loc>https://tidymicrobiome.github.io/microbiomeplot/reference/global_patterns.html</loc>
