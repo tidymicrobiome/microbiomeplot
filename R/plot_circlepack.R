@@ -17,6 +17,12 @@ plot_circlepack <-
 #' @method plot_circlepack microbiome_dataset
 #' @rdname plot_circlepack
 #' @export
+#' library(microbiomeplot)
+#' data("global_patterns")
+#' global_patterns %>%
+#'   activate_microbiome_dataset(what = "variable_info") %>%
+#'   filter(Kingdom == "Archaea") %>%
+#'   plot_circlepack(label_level = "Class")
 
 plot_circlepack.microbiome_dataset <-
   function(object,
@@ -81,7 +87,7 @@ plot_circlepack.microbiome_dataset <-
     plot <-
       plot +
       ggraph::geom_node_circle(aes(fill = taxa_rank),
-                       size = 0.25, n = 50) +
+                               size = 0.25, n = 50) +
       ggraph::geom_node_label(aes(label = label), size = 4, repel = TRUE) +
       scale_fill_manual(
         values = c(

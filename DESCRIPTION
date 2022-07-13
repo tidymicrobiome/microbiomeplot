@@ -58,7 +58,7 @@ Suggests:
     testthat (>= 3.0.0)
 Note:
 Remotes: 
-    gitlab::jaspershen/microbiomedataset
+    gitlab::jaspershen/microbiomedataset,
     gitlab::jaspershen/massdataset
 biocViews: Microbiome
 Config/testthat/edition: 3
