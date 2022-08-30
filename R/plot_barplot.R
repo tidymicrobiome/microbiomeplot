@@ -2,6 +2,7 @@
 #' @param object microbiome_dataset
 #' @param fill fill for barplot
 #' @param alluvial Add alluvial or not.
+#' @param axis.text.x axis.text.x from ggplot2
 #' @param top_n default is 5
 #' @param show.legend show.legend or not
 #' @param what which you want to mutate
@@ -9,6 +10,8 @@
 #' @param relative relative intensity or not.
 #' @param re_calculate_relative re-calculate relative abundance or not.
 #' @param x x axis
+#' @param extract_intensity_by extract intensity by what?
+#' must be from sample information.
 #' @param color color for barplot
 #' @param facet_grid facet_grid
 #' @param ... other params
@@ -25,6 +28,9 @@ plot_barplot <-
                     "Genus",
                     "Species"),
            alluvial = FALSE,
+           axis.text.x = ggplot2::element_text(angle = 45,
+                                               hjust = 1,
+                                               vjust = 1),
            top_n = 5,
            show.legend,
            what = c("sum_intensity",
@@ -34,7 +40,8 @@ plot_barplot <-
            relative = TRUE,
            re_calculate_relative = FALSE,
            x = "sample_id",
-           color = "balck",
+           extract_intensity_by,
+           color = "black",
            facet_grid,
            ...) {
     UseMethod("plot_barplot")
@@ -56,7 +63,7 @@ plot_barplot <-
 #'   activate_microbiome_dataset(what = "sample_info") %>%
 #'   filter(SampleType %in% c("Feces", "Mock")) %>%
 #'   plot_barplot(fill = "Phylum")
-#'
+#' 
 #' global_patterns %>%
 #'   activate_microbiome_dataset(what = "sample_info") %>%
 #'   filter(SampleType %in% c("Feces", "Mock")) %>%
@@ -66,14 +73,14 @@ plot_barplot <-
 #'     re_calculate_relative = TRUE,
 #'     show.legend = TRUE
 #'   )
-#'
+#' 
 #' global_patterns %>%
 #'   activate_microbiome_dataset(what = "sample_info") %>%
 #'   filter(SampleType %in% c("Feces", "Mock")) %>%
 #'   plot_barplot(fill = "Phylum",
 #'                alluvial = TRUE,
 #'                top_n = 10)
-#'
+#' 
 #' global_patterns %>%
 #'   activate_microbiome_dataset(what = "sample_info") %>%
 #'   filter(SampleType %in% c("Feces", "Mock")) %>%
@@ -85,7 +92,7 @@ plot_barplot <-
 #'     alluvial = TRUE,
 #'     top_n = 10
 #'   )
-#'
+#' 
 #' global_patterns %>%
 #'   activate_microbiome_dataset(what = "sample_info") %>%
 #'   filter(SampleType %in% c("Feces", "Mock")) %>%
@@ -109,6 +116,9 @@ plot_barplot.microbiome_dataset <-
                     "Genus",
                     "Species"),
            alluvial = FALSE,
+           axis.text.x = ggplot2::element_text(angle = 45,
+                                               hjust = 1,
+                                               vjust = 1),
            top_n = 5,
            show.legend,
            what = c("sum_intensity",
@@ -118,7 +128,8 @@ plot_barplot.microbiome_dataset <-
            relative = TRUE,
            re_calculate_relative = FALSE,
            x = "sample_id",
-           color = "balck",
+           extract_intensity_by,
+           color = "black",
            facet_grid,
            ...) {
     fill <-
@@ -126,10 +137,14 @@ plot_barplot.microbiome_dataset <-
     what <-
       match.arg(what)
     
+    if (missing(extract_intensity_by)) {
+      extract_intensity_by <- x
+    }
+    
     intensity <-
       extract_intensity(
         object = object,
-        sample_wise = x,
+        sample_wise = extract_intensity_by,
         taxonomic_rank = fill,
         data_type = "longer",
         what = what,
@@ -171,17 +186,19 @@ plot_barplot.microbiome_dataset <-
       }
     }
     
-    colnames(intensity)[1] <- x
+    colnames(intensity)[1] <- extract_intensity_by
     
     sample_info <-
       extract_sample_info(object)
     
     intensity <-
       intensity %>%
-      dplyr::left_join(sample_info %>%
-                         dplyr::distinct(!!as.symbol(x),
-                                         .keep_all = TRUE),
-                       by = setNames(x, x))
+      dplyr::left_join(
+        sample_info %>%
+          dplyr::distinct(!!as.symbol(extract_intensity_by),
+                          .keep_all = TRUE),
+        by = setNames(extract_intensity_by, extract_intensity_by)
+      )
     
     if (alluvial) {
       plot <-
@@ -193,8 +210,8 @@ plot_barplot.microbiome_dataset <-
           alluvium = get(fill),
           fill = get(fill)
         )) +
-        geom_alluvium(width = 0.3, alpha = 0.5) +
-        geom_stratum(width = 0.5)
+        ggalluvial::geom_alluvium(width = 0.3, alpha = 0.5) +
+        ggalluvial::geom_stratum(width = 0.5)
     } else{
       plot <-
         intensity %>%
@@ -204,7 +221,7 @@ plot_barplot.microbiome_dataset <-
           stat = "identity",
           aes(fill = get(fill)),
           show.legend = show.legend,
-          color = "black"
+          color = color
         )
     }
     
@@ -234,10 +251,6 @@ plot_barplot.microbiome_dataset <-
     }
     
     plot +
-      theme(axis.text.x = element_text(
-        angle = 45,
-        hjust = 1,
-        vjust = 1
-      ),
+      theme(axis.text.x = axis.text.x,
       panel.grid = element_blank())
   }

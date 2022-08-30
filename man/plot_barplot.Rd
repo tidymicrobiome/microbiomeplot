@@ -9,6 +9,7 @@ plot_barplot(
   object,
   fill = c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species"),
   alluvial = FALSE,
+  axis.text.x = ggplot2::element_text(angle = 45, hjust = 1, vjust = 1),
   top_n = 5,
   show.legend,
   what = c("sum_intensity", "mean_intensity", "median_intensity"),
@@ -16,7 +17,8 @@ plot_barplot(
   relative = TRUE,
   re_calculate_relative = FALSE,
   x = "sample_id",
-  color = "balck",
+  extract_intensity_by,
+  color = "black",
   facet_grid,
   ...
 )
@@ -25,6 +27,7 @@ plot_barplot(
   object,
   fill = c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species"),
   alluvial = FALSE,
+  axis.text.x = ggplot2::element_text(angle = 45, hjust = 1, vjust = 1),
   top_n = 5,
   show.legend,
   what = c("sum_intensity", "mean_intensity", "median_intensity"),
@@ -32,7 +35,8 @@ plot_barplot(
   relative = TRUE,
   re_calculate_relative = FALSE,
   x = "sample_id",
-  color = "balck",
+  extract_intensity_by,
+  color = "black",
   facet_grid,
   ...
 )
@@ -43,6 +47,8 @@ plot_barplot(
 \item{fill}{fill for barplot}
 
 \item{alluvial}{Add alluvial or not.}
+
+\item{axis.text.x}{axis.text.x from ggplot2}
 
 \item{top_n}{default is 5}
 
@@ -57,6 +63,9 @@ plot_barplot(
 \item{re_calculate_relative}{re-calculate relative abundance or not.}
 
 \item{x}{x axis}
+
+\item{extract_intensity_by}{extract intensity by what?
+must be from sample information.}
 
 \item{color}{color for barplot}
 
