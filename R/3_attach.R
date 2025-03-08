@@ -4,7 +4,7 @@ microbiomeplot_core_unloaded <-
   function() {
     search <- paste0("package:", core)
     core[!search %in% search()]
-  }
+  } #searching for the packages that are not loaded in the R path 
 
 # Attach the package from the same package library it was
 same_library <-

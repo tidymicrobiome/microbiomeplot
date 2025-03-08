@@ -35,6 +35,6 @@ below to see their documentation.
 
   \item{microbiomedataset}{\code{\link[microbiomedataset]{activate_microbiome_dataset}}, \code{\link[microbiomedataset]{convert2tbl_graph}}}
 
-  \item{tidyr}{\code{\link[tidyr]{nest}}, \code{\link[tidyr:nest]{unnest}}}
+  \item{tidyr}{\code{\link[tidyr]{nest}}, \code{\link[tidyr]{unnest}}}
 }}
 
