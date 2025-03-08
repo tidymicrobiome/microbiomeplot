@@ -9,3 +9,7 @@
 # microbiomeplot 0.99.3
 
 * Improve code.
+
+# microbiomeplot 0.99.4
+
+* Added a new PCA plotting function to the package.

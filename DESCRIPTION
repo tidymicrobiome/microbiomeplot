@@ -48,7 +48,8 @@ Imports:
     ggraph,
     massdataset,
     phyloseq,
-    ggalluvial
+    ggalluvial,
+    ggfortify
 Suggests: 
     knitr,
     rmarkdown,
