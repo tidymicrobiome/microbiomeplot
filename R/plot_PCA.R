@@ -83,16 +83,6 @@ theme_function <- switch(
   stop("Invalid theme name. Choose from: 'minimal', 'classic', 'bw', 'light', 'dark'")
 )
 
-#pca_plot <- ggplot2::ggplot(pca_scores, ggplot2::aes(x = !!sym(paste0("PC", pc_x)),
- #                                                    y = !!sym(paste0("PC", pc_y)), 
-  #                                                   colour = !!sym(grad))) + 
-   #                                               ggplot2::geom_point(size = size) + ggplot2::geom_text(ggplot2::aes(label = grad), 
-    #                                                                                                    hjust = 1.5, vjust = 1.5, size = size) + 
-     #                                                ggplot2::labs(title = title, 
-      #                                                        x = paste0("PC", pc_x, " (", variance_explained[pc_x], "%)"), 
-       #                                                       y = paste0("PC", pc_y, " (", variance_explained[pc_y], "%)"), 
-        #                                                      colour = grad) + theme_function()
-
 pca_plot <- ggplot2::ggplot(pca_scores, 
                             ggplot2::aes(x = !!sym(paste0("PC", pc_x)), 
                                          y = !!sym(paste0("PC", pc_y)), 
