@@ -50,7 +50,8 @@ Imports:
     phyloseq,
     ggalluvial,
     ggfortify,
-    cowplot
+    cowplot,
+    Rtsne
 Suggests: 
     knitr,
     rmarkdown,

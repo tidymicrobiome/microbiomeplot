@@ -3,54 +3,63 @@
 \name{plot_PCA}
 \alias{plot_PCA}
 \alias{plot_PCA.microbiome_dataset}
-\title{Plotting a PCA plot for the microbiome data}
+\title{Plotting a PCA plot for microbiome data}
 \usage{
 plot_PCA(
   object,
   scale = TRUE,
-  colour,
+  grad,
   pc_x = 1,
   pc_y = 2,
-  size,
+  size = 2,
   legend = TRUE,
-  title,
-  theme,
+  title = "PCA Plot for Microbiome Data",
+  theme = "minimal",
   legend.position = "bottom",
-  scree.plot = TRUE,
+  scree.plot = FALSE,
   ..
 )
 
 \method{plot_PCA}{microbiome_dataset}(
   object,
   scale = TRUE,
-  colour,
+  grad,
   pc_x = 1,
   pc_y = 2,
-  size,
+  size = 2,
   legend = TRUE,
-  title,
-  theme,
+  title = "PCA Plot for Microbiome Data",
+  theme = "minimal",
   legend.position = "bottom",
-  scree.plot = TRUE,
+  scree.plot = FALSE,
   ..
 )
 }
 \arguments{
 \item{object}{microbiome_dataset object}
 
-\item{scale}{scaling parameter for prcomp object}
+\item{scale}{scaling of the variables}
 
-\item{colour}{color the data points by a column on the sample_info}
+\item{grad}{The column in the sample_info that the data_points to be labelled}
 
-\item{pc_x}{Specify the x axis principal component}
+\item{pc_x}{Principle Component 1}
 
-\item{pc_y}{Specify the y axis principal component}
+\item{pc_y}{Principle Component 2}
 
-\item{..}{other parameters}
-}
-\value{
-a ggplot2 object
+\item{size}{size of the labels in the graph}
+
+\item{legend}{legend for the plot}
+
+\item{title}{title of the plot}
+
+\item{theme}{theme of the plot}
+
+\item{legend.position}{position of the legend}
+
+\item{scree.plot}{scree plot of the PCs}
+
+\item{..}{}
 }
 \description{
-Plotting a PCA plot for the microbiome data
+Plotting a PCA plot for microbiome data
 }

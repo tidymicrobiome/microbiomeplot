@@ -1,16 +1,31 @@
-#' @title Plotting a PCA plot for the microbiome data
-#' @param object microbiome_dataset object
-#' @param scale scaling parameter for prcomp object
-#' @param colour color the data points by a column on the sample_info
-#' @param pc_x Specify the x axis principal component
-#' @param pc_y Specify the y axis principal component
-#' @param .. other parameters
-#' @return a ggplot2 object
+#' @title Plotting a PCA plot for microbiome data
+#'
+#' @param object microbiome_dataset object 
+#' @param scale scaling of the variables 
+#' @param grad The column in the sample_info that the data_points to be labelled
+#' @param pc_x Principle Component 1
+#' @param pc_y Principle Component 2
+#' @param size size of the labels in the graph
+#' @param legend legend for the plot
+#' @param title title of the plot
+#' @param theme theme of the plot 
+#' @param legend.position position of the legend
+#' @param scree.plot scree plot of the PCs
+#' @param .. 
+#'
+#' @return
 #' @export
-plot_PCA <- function(object, scale = TRUE, grad , pc_x = 1, pc_y = 2, size = 2, 
+#'
+#' @examples
+plot_PCA <- function(object, scale = TRUE, grad, pc_x = 1, pc_y = 2, size = 2, 
                      legend = TRUE, title = "PCA Plot for Microbiome Data", theme = "minimal", legend.position = "bottom", scree.plot = FALSE, ..){
   UseMethod("plot_PCA")
 }
+
+#' @rdname convert2phyloseq
+#' @export
+plotPCA <- plot_PCA
+
 
 #' @method plot_PCA microbiome_dataset
 #' @rdname plot_PCA
