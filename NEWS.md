@@ -13,3 +13,7 @@
 # microbiomeplot 0.99.4
 
 * Added a new PCA plotting function to the package.
+
+# microbiomeplot 0.99.5
+
+* Added a new t-sne function to the package
