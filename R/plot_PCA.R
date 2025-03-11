@@ -13,10 +13,7 @@
 #' @param scree.plot scree plot of the PCs
 #' @param .. 
 #'
-#' @return
 #' @export
-#'
-#' @examples
 plot_PCA <- function(object, scale = TRUE, grad, pc_x = 1, pc_y = 2, size = 2, 
                      legend = TRUE, title = "PCA Plot for Microbiome Data", theme = "minimal", legend.position = "bottom", scree.plot = FALSE, ..){
   UseMethod("plot_PCA")

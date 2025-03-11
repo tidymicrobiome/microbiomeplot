@@ -7,7 +7,7 @@
 \usage{
 plot_tSNE(
   object,
-  fill,
+  grad,
   dims = 2,
   perplexity = 30,
   number_of_iteration = 1000,
@@ -15,8 +15,9 @@ plot_tSNE(
   pca = TRUE,
   legend = TRUE,
   title = "t-SNE plot for Microbiome Data",
-  x_title = "axis 1",
-  y_title = "axis 2",
+  x_title = "dimension 1",
+  y_title = "dimension 2",
+  z_title = "dimension 3",
   theme = "minimal",
   legend.position = "bottom",
   size = 3,
@@ -26,7 +27,7 @@ plot_tSNE(
 
 \method{plot_tSNE}{microbiome_dataset}(
   object,
-  fill,
+  grad,
   dims = 2,
   perplexity = 30,
   number_of_iters = 1000,
@@ -34,8 +35,9 @@ plot_tSNE(
   pca = TRUE,
   legend = TRUE,
   title = "t-SNE plot for Microbiome Data",
-  x_title,
-  y_title,
+  x_title = "dimension 1",
+  y_title = "dimension 2",
+  z_title = "dimension 3",
   theme = "minimal",
   legend.position = "bottom",
   size = 3,
@@ -46,9 +48,27 @@ plot_tSNE(
 \arguments{
 \item{object}{the microbiomedataset object}
 
+\item{grad}{the column of the sample_info to be colored by}
+
+\item{dims}{the output dimensionality of the t-sne object}
+
+\item{perplexity}{A parameter that controls the balance between local and global aspects of the data when t-SNE is creating the low-dimensional map.}
+
+\item{number_of_iteration}{Number of iterations (default: 1000)}
+
+\item{initial_dims}{e number of dimensions that should be retained in the initial PCA step}
+
+\item{pca}{ogical; Whether an initial PCA step should be performed}
+
 \item{legend}{legend for the plot}
 
 \item{title}{Title of the plot}
+
+\item{x_title}{The x-axis title of the plot}
+
+\item{y_title}{the y-axis title of the plot}
+
+\item{z_title}{the z-axis title of the plot}
 
 \item{theme}{theme for the ggplot}
 
@@ -56,7 +76,9 @@ plot_tSNE(
 
 \item{size}{size of the labels}
 
-\item{..}{}
+\item{title_size}{the size of the text for the title}
+
+\item{..}{other parameters}
 }
 \value{
 A ggplo2 class object
