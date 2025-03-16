@@ -1,28 +1,45 @@
 #' @title Plotting a PCA plot for microbiome data
 #'
 #' @param object microbiome_dataset object 
-#' @param scale scaling of the variables 
+#' @param scale numeric; scaling of the variables 
 #' @param grad The column in the sample_info that the data_points to be labelled
-#' @param pc_x Principle Component 1
-#' @param pc_y Principle Component 2
-#' @param size size of the labels in the graph
-#' @param legend legend for the plot
+#' @param pc_x numeric; Principle Component for the x-axis
+#' @param pc_y numeric; Principle Component for the y-axis
+#' @param size numeric; size of the labels in the graph
+#' @param legend logical; legend for the plot 
 #' @param title title of the plot
-#' @param theme theme of the plot 
+#' @param theme The theme of the ggplot to be displayed (default: theme_minimal)
+#' - These themes include:
+#'    - theme_minimal
+#'    - theme_classic
+#'    - theme_bw
+#'    - theme_light
+#'    - theme_dark
 #' @param legend.position position of the legend
-#' @param scree.plot scree plot of the PCs
+#' @param scree.plot Logical. If `TRUE`, a scree plot showing the variance explained by each principal component will be included.
 #' @param .. 
+#' @examples
+#' # Load example data
+#' data(global_patterns)
+#' 
+#' # Generate PCA plot
+#' plot_PCA(global_patterns, grad = "sample_id", pc_x = 1, pc_y = 2, size = 3, scree.plot = TRUE)
+#' plotPCA(global_patterns, grad = "sample_id", pc_x = 1, pc_y = 2, size = 3, scree.plot = TRUE)
+#' plot.PCA(global_patterns, grad = "sample_id", pc_x = 1, pc_y = 2, size = 3, scree.plot = TRUE)
 #'
 #' @export
 plot_PCA <- function(object, scale = TRUE, grad, pc_x = 1, pc_y = 2, size = 2, 
-                     legend = TRUE, title = "PCA Plot for Microbiome Data", theme = "minimal", legend.position = "bottom", scree.plot = FALSE, ..){
+                     legend = TRUE, title = "PCA Plot for Microbiome Data", theme = "minimal", legend.position = "bottom", scree.plot = FALSE, ...){
   UseMethod("plot_PCA")
 }
 
-#' @rdname convert2phyloseq
+#' @rdname plot_PCA
 #' @export
 plotPCA <- plot_PCA
 
+#' @rdname plot_PCA
+#' @export
+plot.PCA <- plot_PCA
 
 #' @method plot_PCA microbiome_dataset
 #' @rdname plot_PCA
@@ -36,7 +53,7 @@ plot_PCA.microbiome_dataset <-
   function(object , 
            scale = TRUE, 
            grad, pc_x = 1, 
-           pc_y = 2, size = 2, legend = TRUE, title = "PCA Plot for Microbiome Data", theme = "minimal", legend.position = "bottom", scree.plot = FALSE, ..){
+           pc_y = 2, size = 2, legend = TRUE, title = "PCA Plot for Microbiome Data", theme = "minimal", legend.position = "bottom", scree.plot = FALSE, ...){
 
   
   #extract the expression data
@@ -47,7 +64,7 @@ plot_PCA.microbiome_dataset <-
   zero_var_rows <- apply(expression_data, 1, function(x) var(x, na.rm = TRUE) == 0)
   
   if (any(zero_var_rows)) {
-    warning("Removing ", sum(zero_var_rows), " constant columns with zero variance.")
+    warning("Removing ", sum(zero_var_rows), " constant rows with zero variance.")
     expression_data <- expression_data[!zero_var_rows, ]
   }
   
@@ -56,8 +73,11 @@ plot_PCA.microbiome_dataset <-
 
   
   #extract sample_info for coloring the datapoints 
-  sample_info <- 
-    microbiomedataset::extract_sample_info(object)
+  sample_info <- microbiomedataset::extract_sample_info(object)
+  
+  if (!grad %in% colnames(sample_info)) {
+    stop("The column '", grad, "' does not exist in the sample_info data.")
+  }
   
   #Perform PCA (reduction of the dimensions)
   pca_result <- 

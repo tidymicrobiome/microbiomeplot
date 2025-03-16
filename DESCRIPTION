@@ -51,7 +51,8 @@ Imports:
     ggalluvial,
     ggfortify,
     cowplot,
-    Rtsne
+    Rtsne,
+    biomehorizon
 Suggests: 
     knitr,
     rmarkdown,

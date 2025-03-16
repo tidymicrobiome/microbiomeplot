@@ -14,3 +14,5 @@
 #' @keywords data
 #' @examples
 #' data(global_patterns)
+#' 
+#' 

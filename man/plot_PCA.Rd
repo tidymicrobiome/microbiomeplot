@@ -2,6 +2,8 @@
 % Please edit documentation in R/plot_PCA.R
 \name{plot_PCA}
 \alias{plot_PCA}
+\alias{plotPCA}
+\alias{plot.PCA}
 \alias{plot_PCA.microbiome_dataset}
 \title{Plotting a PCA plot for microbiome data}
 \usage{
@@ -17,7 +19,37 @@ plot_PCA(
   theme = "minimal",
   legend.position = "bottom",
   scree.plot = FALSE,
-  ..
+  ...
+)
+
+plotPCA(
+  object,
+  scale = TRUE,
+  grad,
+  pc_x = 1,
+  pc_y = 2,
+  size = 2,
+  legend = TRUE,
+  title = "PCA Plot for Microbiome Data",
+  theme = "minimal",
+  legend.position = "bottom",
+  scree.plot = FALSE,
+  ...
+)
+
+plot.PCA(
+  object,
+  scale = TRUE,
+  grad,
+  pc_x = 1,
+  pc_y = 2,
+  size = 2,
+  legend = TRUE,
+  title = "PCA Plot for Microbiome Data",
+  theme = "minimal",
+  legend.position = "bottom",
+  scree.plot = FALSE,
+  ...
 )
 
 \method{plot_PCA}{microbiome_dataset}(
@@ -32,34 +64,54 @@ plot_PCA(
   theme = "minimal",
   legend.position = "bottom",
   scree.plot = FALSE,
-  ..
+  ...
 )
 }
 \arguments{
 \item{object}{microbiome_dataset object}
 
-\item{scale}{scaling of the variables}
+\item{scale}{numeric; scaling of the variables}
 
 \item{grad}{The column in the sample_info that the data_points to be labelled}
 
-\item{pc_x}{Principle Component 1}
+\item{pc_x}{numeric; Principle Component for the x-axis}
 
-\item{pc_y}{Principle Component 2}
+\item{pc_y}{numeric; Principle Component for the y-axis}
 
-\item{size}{size of the labels in the graph}
+\item{size}{numeric; size of the labels in the graph}
 
-\item{legend}{legend for the plot}
+\item{legend}{logical; legend for the plot}
 
 \item{title}{title of the plot}
 
-\item{theme}{theme of the plot}
+\item{theme}{The theme of the ggplot to be displayed (default: theme_minimal)
+\itemize{
+\item These themes include:
+\itemize{
+\item theme_minimal
+\item theme_classic
+\item theme_bw
+\item theme_light
+\item theme_dark
+}
+}}
 
 \item{legend.position}{position of the legend}
 
-\item{scree.plot}{scree plot of the PCs}
+\item{scree.plot}{Logical. If \code{TRUE}, a scree plot showing the variance explained by each principal component will be included.}
 
 \item{..}{}
 }
 \description{
 Plotting a PCA plot for microbiome data
+}
+\examples{
+# Load example data
+data(global_patterns)
+
+# Generate PCA plot
+plot_PCA(global_patterns, grad = "sample_id", pc_x = 1, pc_y = 2, size = 3, scree.plot = TRUE)
+plotPCA(global_patterns, grad = "sample_id", pc_x = 1, pc_y = 2, size = 3, scree.plot = TRUE)
+plot.PCA(global_patterns, grad = "sample_id", pc_x = 1, pc_y = 2, size = 3, scree.plot = TRUE)
+
 }

@@ -60,7 +60,7 @@ plot_barplot(
 
 \item{relative}{relative intensity or not.}
 
-\item{re_calculate_relative}{re-calculate relative abundance or not.}
+\item{re_calculate_relative}{re-calculate relative abundance or t.}
 
 \item{x}{x axis}
 

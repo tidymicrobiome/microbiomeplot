@@ -8,7 +8,7 @@
 #' @param what which you want to mutate
 #' @param na.rm na.rm
 #' @param relative relative intensity or not.
-#' @param re_calculate_relative re-calculate relative abundance or not.
+#' @param re_calculate_relative re-calculate relative abundance or t.
 #' @param x x axis
 #' @param extract_intensity_by extract intensity by what?
 #' must be from sample information.
