@@ -1,11 +1,37 @@
-#' @title Plotting a Pie chart for the global composition of all samples
-#' @param object microbiomedataset object
-#' @param tax_level the level of taxa to fill
-#' @param top_n default is 10
-#' @param ... other parameters 
+#setwd(r4projects::get_project_wd())
+# plot_piechart(global_patterns, tax_level = "Genus")
+
+#' Create a Pie Chart of Taxonomic Composition
+#' 
+#' @title Create a Pie Chart of Taxonomic Composition
+#' @description Generates a pie chart visualizing the global taxonomic composition
+#'   across all samples in a microbiome dataset. The function aggregates abundance 
+#'   data at the specified taxonomic level and displays the top contributors.
 #'
-#' @return a ggplot2 object
-#' @export 
+#' @param object A microbiomedataset object containing taxonomic abundance data.
+#' @param tax_level The taxonomic level to aggregate and display. Must be one of:
+#'   "Kingdom", "Phylum", "Class", "Order", "Family", "Genus", or "Species".
+#' @param top_n Integer specifying the number of top taxa to display individually.
+#'   Taxa beyond this number are grouped as "Other". Default is 10.
+#' @param theme The ggplot2 theme to apply to the pie chart. Options are:
+#'   "minimal", "classic", "bw", "light", "dark", or "void" (default).
+#' @param table Logical indicating whether to include a data table alongside 
+#'   the pie chart (TRUE) or return only the pie chart (FALSE). Default is TRUE.
+#' @param ... Additional parameters passed to internal functions.
+#'
+#' @return If table=TRUE, returns a grid.arrange object containing both the 
+#'   pie chart and a table of percentages. If table=FALSE, returns a ggplot2 object.
+#' @examples
+#' \dontrun{
+#' # Create a pie chart of the top 5 phyla
+#' plot_piechart(microbiome_data, tax_level = "Phylum", top_n = 5)
+#' 
+#' # Create a pie chart with a different theme and no table
+#' plot_piechart(microbiome_data, tax_level = "Genus", theme = "classic", table = FALSE)
+#' }
+#' @seealso \code{\link{extract_expression_data}}, \code{\link{extract_variable_info}}
+#' @export
+
 plot_piechart <- function(object, tax_level = c("Kingdom",
                                                 "Phylum",
                                                 "Class",
@@ -19,8 +45,12 @@ plot_piechart <- function(object, tax_level = c("Kingdom",
 #' @method plot_piechart microbiome_dataset
 #' @rdname plot_piechart
 #' @import ggplot2
-#' @return a ggplot2 object
+#' @importFrom dplyr group_by summarise ungroup arrange mutate across
+#' @importFrom tidyr drop_na
+#' @importFrom rlang sym
+#' @importFrom gridExtra tableGrob grid.arrange ttheme_minimal
 #' @export
+
 plot_piechart.microbiome_dataset <- function(object, tax_level = c("Kingdom",
                                                                    "Phylum",
                                                                    "Class",
