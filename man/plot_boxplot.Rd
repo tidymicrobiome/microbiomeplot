@@ -6,7 +6,7 @@
 \title{Boxplot for OTU abundance}
 \usage{
 plot_boxplot(
-  d,
+  object,
   x,
   y,
   line = NULL,
@@ -26,25 +26,39 @@ plot_boxplot(
 )
 }
 \arguments{
-\item{d}{microbiomedataset object}
+\item{object}{A microbiomedataset object.}
 
-\item{x}{the Metadata variable to map to the horizontal axis.}
+\item{x}{The metadata variable to map to the horizontal axis.}
 
-\item{y}{OTU to map on the vertical axis}
+\item{y}{OTU to map on the vertical axis.}
 
-\item{line}{The variable to map on lines}
+\item{line}{The variable to map on lines.}
 
-\item{violin}{Use violin version of the boxplot}
+\item{violin}{Use violin version of the boxplot (default: FALSE).}
 
-\item{na.rm}{Remove NAs}
+\item{na.rm}{Remove NAs (default: FALSE).}
 
-\item{show.points}{Include data points in the figure}
+\item{show.points}{Include data points in the figure (default: TRUE).}
 }
 \value{
-a ggplot2 object
-
-a ggplot2 object
+A ggplot2 object.
 }
 \description{
-boxplots/violn plots for single OTUs against a column in sample_info
+Boxplots/violin plots for single OTUs against a column in sample_info.
+}
+\examples{
+plot_boxplot(global_patterns, x = "sample_id", y = "165578", violin = TRUE, show.points = FALSE)
+# Example for global_patterns data
+plot_boxplot(global_patterns, x = "sample_id", y = "165578", violin = TRUE, show.points = FALSE)
+
+}
+\references{
+Lahti, L., Shetty, S., et al. (2017). microbiome: Tools for microbiome analysis in R.
+R package version 1.0.0. URL: https://github.com/microbiome/microbiome
+
+To cite this function in publications, use:
+\code{citation("microbiome")}
+}
+\seealso{
+\code{\link{extract_expression_data}}, \code{\link{extract_variable_info}}
 }

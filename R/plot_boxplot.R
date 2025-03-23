@@ -1,26 +1,38 @@
-#plotting boxplot for microbiome data - for a single vairable 
 #' @title Boxplot for OTU abundance 
 #' @description
-#' boxplots/violn plots for single OTUs against a column in sample_info
-#' @param d microbiomedataset object
-#' @param x the Metadata variable to map to the horizontal axis.
-#' @param y OTU to map on the vertical axis
-#' @param line The variable to map on lines
-#' @param violin Use violin version of the boxplot
-#' @param na.rm Remove NAs
-#' @param show.points Include data points in the figure
+#' Boxplots/violin plots for single OTUs against a column in sample_info.
+#' @param object A microbiomedataset object.
+#' @param x The metadata variable to map to the horizontal axis.
+#' @param y OTU to map on the vertical axis.
+#' @param line The variable to map on lines.
+#' @param violin Use violin version of the boxplot (default: FALSE).
+#' @param na.rm Remove NAs (default: FALSE).
+#' @param show.points Include data points in the figure (default: TRUE).
 #'
-#' @return a ggplot2 object
+#' @return A ggplot2 object.
 #' @export
+#' @example plotbar.R
+#' @examples
+#' # Example for global_patterns data
+#' plot_boxplot(global_patterns, x = "sample_id", y = "165578", violin = TRUE, show.points = FALSE)
+#'
+#' @seealso \code{\link{extract_expression_data}}, \code{\link{extract_variable_info}}
+#'
+#' @references
+#' Lahti, L., Shetty, S., et al. (2017). microbiome: Tools for microbiome analysis in R.
+#' R package version 1.0.0. URL: https://github.com/microbiome/microbiome
+#'
+#' To cite this function in publications, use:
+#' \code{citation("microbiome")}
+
 plot_boxplot <-
-  function(d, x, y, line=NULL, violin=FALSE, na.rm=FALSE, show.points=TRUE) {
+  function(object, x, y, line=NULL, violin=FALSE, na.rm=FALSE, show.points=TRUE) {
     UseMethod("plot_boxplot")}
 
 #' @method plot_boxplot microbiome_dataset
 #' @rdname plot_boxplot
 #' @import ggplot2
 #' @importFrom microbiomedataset extract_expression_data extract_sample_info extract_variable_info
-#' @return a ggplot2 object
 #' @export
 plot_boxplot.microbiome_dataset <- function(object, x, y, line=NULL, violin=FALSE, na.rm=FALSE, show.points=TRUE){
   

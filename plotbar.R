@@ -1,0 +1,1 @@
+plot_boxplot(global_patterns, x = "sample_id", y = "165578", violin = TRUE, show.points = FALSE)
