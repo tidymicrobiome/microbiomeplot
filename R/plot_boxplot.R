@@ -92,8 +92,4 @@ plot_boxplot.microbiome_dataset <- function(object, x, y, line=NULL, violin=FALS
   p <- p +  ggplot2::xlab(x) +  ggplot2::ylab(y)
   
   return(p)
-  
-  
-  
-  
 }
