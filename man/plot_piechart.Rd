@@ -9,7 +9,8 @@ plot_piechart(
   object,
   tax_level = c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species"),
   top_n = 10,
-  theme = "minimal",
+  theme = "void",
+  table = TRUE,
   ...
 )
 
@@ -17,7 +18,8 @@ plot_piechart(
   object,
   tax_level = c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species"),
   top_n = 10,
-  theme = "minimal",
+  theme = "void",
+  table = TRUE,
   ...
 )
 }
