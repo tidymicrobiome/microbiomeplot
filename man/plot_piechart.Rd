@@ -32,8 +32,8 @@ plot_piechart(
 \item{top_n}{Integer specifying the number of top taxa to display individually.
 Taxa beyond this number are grouped as "Other". Default is 10.}
 
-\item{theme}{The ggplot2 theme to apply to the pie chart. Options are:
-"minimal", "classic", "bw", "light", "dark", or "void" (default).}
+\item{theme}{nteger specifying the number of top taxa to display individually.
+Taxa beyond this number are grouped as "Other". Default is 10.}
 
 \item{table}{Logical indicating whether to include a data table alongside
 the pie chart (TRUE) or return only the pie chart (FALSE). Default is TRUE.}
