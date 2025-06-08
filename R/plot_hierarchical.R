@@ -85,7 +85,6 @@ plot_hierarchical.microbiome_dataset <- function(object, method_dist = c("manhat
           panel.grid=element_blank())
   
   
-  
   return(p)
   
   
