@@ -51,13 +51,31 @@ plot_hierarchical.microbiome_dataset <- function(object, method_dist = c("manhat
   ward <- hclust(bc_dist, method = method_dend)
   dendr    <- ggdendro::dendro_data(ward, type= type)
   group = as.factor(sample_info[, group])
-  clust    <- cutree(ward,k=length(levels(group)))
-  clust.df <- data.frame(label=names(clust), cluster=factor(clust))
-  dendr[["labels"]] <- merge(dendr[["labels"]],clust.df, by="label")
+  
+  
+  # Determine number of clusters
+    k <- length(unique(group))
+    cluster_names = unique(group)
+  # Cut tree to get clusters
+  clusters <- cutree(ward, k = k)
+  # Create dendrogram data
+  dend <- as.dendrogram(ward)
+  dend_data <- dendro_data(dend, type = type)
+  
+  # Apply custom cluster names if provided
+  if (!is.null(cluster_names) && length(cluster_names) == k) {
+    cluster_labels <- factor(cluster_names[clusters], levels = cluster_names)
+  } else {
+    cluster_labels <- factor(clusters)
+  }
+  
+  # Prepare label data
+  label_data <- ggdendro::label(dend_data)
+  label_data$cluster <- cluster_labels[match(label_data$label, names(clusters))]
   
   p = ggplot2::ggplot() + 
     ggplot2::geom_segment(data=ggdendro::segment(dendr), aes(x=x, y=y, xend=xend, yend=yend)) + 
-    ggplot2::geom_text(data=ggdendro::label(dendr), aes(x, y, label=label, hjust=0, color=cluster), 
+    ggplot2::geom_text(data=label_data, aes(x, y, label=label, hjust=0, color=cluster), 
               size=3) + ggplot2::coord_flip()+ scale_y_reverse(expand=c(0.2, 0)) + 
     ggplot2::theme(axis.line.y=element_blank(),
           axis.ticks.y=element_blank(),
